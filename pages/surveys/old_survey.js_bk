@@ -1,0 +1,110 @@
+import React, { Component } from "react";
+import router from "next/router";
+import { Container, Row } from "reactstrap";
+import dynamic from "next/dynamic";
+import Admin from "layouts/Admin.js";
+import Loader from "components/Spinner";
+import ErrorMessage from "components/Error";
+
+import { getSurveyById } from "../../api/surveys";
+
+const SurveyView = dynamic(
+  () => import("../../components/Survey/old_surveyView"),
+  {
+    ssr: false,
+  }
+);
+
+class SurveyPage extends Component {
+  state = {
+    loading: false,
+    survey: {},
+    error: "",
+  };
+
+  async componentDidMount() {
+    this.setState({ ...this.state, loading: true });
+    if (router && router.query && router.query.id) {
+      const survey = await getSurveyById(router.query.id);
+      if (survey.success)
+        this.setState({ ...this.state, survey: survey.data, loading: false });
+      else
+        this.setState({
+          ...this.state,
+          loading: false,
+          error: "Server Error while fetching survey data",
+        });
+    } else {
+      this.setState({
+        ...this.state,
+        loading: false,
+        error: "No Survey id provided to fetch survey",
+      });
+    }
+  }
+
+  // onComplete = async (result, options) => {
+  //   this.setState({ ...this.state, error: "" });
+  //   const user = JSON.parse(localStorage.getItem("user"));
+
+  //   const userid = user.id;
+  //   const surveyid = this.state.survey.id;
+  //   const surveyname = this.state.survey.surveyname;
+  //   const surveydescription = this.state.survey.surveyJSON.description;
+  //   const surveyresultJSON = JSON.stringify(result.data);
+  //   const postSurveyResponse = await postSurveyResult(
+  //     userid,
+  //     surveyid,
+  //     surveyresultJSON,
+  //     surveyname,
+  //     surveydescription
+  //   );
+  //   if (postSurveyResponse && postSurveyResponse.success) {
+  //     Router.push(`/surveys/surveyAnalytics?id=${surveyid}`);
+  //   } else {
+  //     this.setState({ ...this.state, error: "Server Error" });
+  //   }
+  // };
+
+  render() {
+    const { loading, error } = this.state;
+    if (loading) return <Loader />;
+    if (error) return <ErrorMessage errorMessage={error} />;
+    if (this.state.survey) {
+      const data =
+        this.state.survey && this.state.survey.surveyJSON
+          ? JSON.parse(this.state.survey.surveyJSON)
+          : "";
+      console.log("DATA", data);
+      // var model = new Survey.Model(
+      //   this.state.survey && this.state.survey.surveyJSON
+      //     ? JSON.parse(this.state.survey.surveyJSON)
+      //     : ""
+      // );
+      return (
+        <>
+          <Container className="mt--12" fluid>
+            <Row className="justify-content-center">
+              <h1>Surveys</h1>
+            </Row>
+            <Row>
+              <h2>SurveyJS Library - a sample survey below</h2>
+              <SurveyView data={data} survey={this.state.survey} />
+              {/* <Survey.Survey model={model} onComplete={this.onComplete} /> */}
+            </Row>
+          </Container>
+          {/* <SimpleHeader name="Buttons" parentName="Examples" /> */}
+          {/* <Container className="mt--6" fluid>
+          <Row>Hello</Row>
+        </Container> */}
+        </>
+      );
+    }
+
+    return <ErrorMessage error="No Survey data found" />;
+  }
+}
+
+SurveyPage.layout = Admin;
+
+export default SurveyPage;

@@ -1,0 +1,105 @@
+.fc-direction-ltr .fc-dayGrid-view .fc-day-top .fc-day-number {
+  float: right;
+}
+.fc-daygrid .fc-daygrid-body .fc-daygrid-day {
+  min-height: 4em;
+}
+
+.widget-calendar .fc {
+  * {
+    border-color: transparent !important;
+  }
+  &.fc-direction-ltr .fc-dayGridMonth-view .fc-daygrid-day-top .fc-daygrid-day-number {
+    padding: 0 !important;
+  }
+  &.fc-direction-ltr .fc-daygrid-event.fc-event-start,
+  &.fc-direction-rtl .fc-daygrid-event.fc-event-end {
+    margin-right: 2px;
+    margin-left: 2px;
+  }
+}
+
+.calendar {
+  .fc .fc-scrollgrid {
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+  }
+  .fc .fc-daygrid-event {
+    margin: 1px 9px !important;
+  }
+}
+.fc {
+  .fc-scrollgrid-section-body table,
+  .fc-scrollgrid-section-footer table,
+  .fc-scrollgrid-section table,
+  .fc-daygrid-body.fc-daygrid-body-unbalanced {
+    width: 100% !important;
+  }
+  .fc-daygrid-day.fc-day-today {
+    background-color: unset !important;
+    .fc-daygrid-day-number {
+      color: $orange !important;
+    }
+  }
+  .fc-h-event .fc-event-title-container .fc-event-title {
+    @include text-truncate();
+  }
+  .fc-event {
+    padding: 0 !important;
+    font-size: $font-size-xs !important;
+    border-radius: $border-radius-sm !important;
+    border: 0 !important;
+    .fc-event-title-container {
+      padding: .4rem .5rem;
+      display: block;
+      color: $white;
+      @include text-truncate();
+      font-weight: $font-weight-bold;
+    }
+  }
+  .fc-header-toolbar.fc-toolbar {
+    display: none;
+  }
+  &.fc-theme-standard .fc-scrollgrid-section-body > td {
+    border: 0;
+  }
+  th.fc-col-header-cell {
+    padding: .75rem 1rem;
+    font-size: .75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: left;
+    a, a:hover {
+      color: $gray-600;
+    }
+    .fc-col-header-cell-cushion{
+      padding: 0;
+    }
+  }
+  * {
+    border-color: #eff1f3 !important;
+  }
+  &.fc-direction-ltr {
+    .fc-dayGridMonth-view .fc-daygrid-day-top {
+      flex-direction: row;
+      .fc-daygrid-day-number {
+        float: left;
+        padding: .5rem 1rem;
+        width: 100%;
+        box-sizing: border-box;
+        font-size: .875rem;
+        font-weight: 600;
+        color: #67779d;
+      }
+    }
+  }
+  .fc-daygrid-block-event .fc-event-time, .fc-daygrid-block-event .fc-event-title {
+    padding: 0;
+  }
+  &.fc-direction-ltr .fc-daygrid-event.fc-event-start,
+  &.fc-direction-rtl .fc-daygrid-event.fc-event-end{
+    margin-left: 9px;
+    margin-right: 9px;
+  }
+}
