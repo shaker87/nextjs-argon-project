@@ -26,7 +26,7 @@ const SurveyResultSinglePage = (props) => {
   })
 
   useEffect(()=>{
- setState({ ...this.state, loading: true });
+ setState({ ...state, loading: true });
     if (router && router.query && router.query.id) {
       const survey =  getSurveyResultById(router.query.id);
       if (survey.success)
