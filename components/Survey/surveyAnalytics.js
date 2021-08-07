@@ -3,25 +3,25 @@ import { VisualizationPanel } from "survey-analytics";
 import "survey-analytics/survey.analytics.css";
 import * as Survey from "survey-react";
 
-export const SurveyAnalytics =(props) => {
-  visPanel;
+const SurveyAnalytics = (props) => {
+  let visPanel;
   useEffect(()=>{
-
-      if (props.data && props.json) {
-        const survey = new Survey.SurveyModel(props.json);
-        visPanel = new VisualizationPanel(
-          survey.getAllQuestions(),
-         props.data
-        );
-       visPanel.render(document.getElementById("summaryContainer"));
-      }
-
+    if (props.data && props.json) {
+      const survey = new Survey.SurveyModel(props.json);
+      visPanel = new VisualizationPanel(
+        survey.getAllQuestions(),
+        props.data
+      );
+      visPanel.render(document.getElementById("summaryContainer"));
+    }
   },[])
-
- 
-    return <div id="summaryContainer"></div>;
-
+  return (
+    <div id="summaryContainer"></div>
+  )
 }
+
+export default SurveyAnalytics;
+
 
 // export default class SurveyAnalytics extends Component {
 //   visPanel;
