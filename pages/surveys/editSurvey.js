@@ -31,7 +31,7 @@ const SurveyView = (props) =>{
     // }
   };
 
-    const { data } = this.props;
+    const { data } = props;
     var model = new Survey.Model(data);
     return (
       <>
