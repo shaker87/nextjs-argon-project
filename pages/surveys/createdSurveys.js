@@ -18,20 +18,19 @@ import Admin from "layouts/Admin.js";
 //import { getAllSurveysByUserId } from "../../api/surveys";
 import { getAllSurveysByUserId } from "../api/surveys";
 
-const CreatedSurveys = () => {
+const CreatedSurveys = (props) => {
   const [state, setState] = useState({
     loading: false,
     surveys: [],
     error: "",
   });
 
-  
-
-  useEffect(() => {
+  const  loadFunc = async () => {
     setState({ ...state, loading: true });
     const userid = 14;
 
-    const surveys = getAllSurveysByUserId(userid);
+    const surveys = await getAllSurveysByUserId(userid);
+    console.log('surveys :>> ', surveys);
     if (surveys && surveys.success) {
       setState({ surveys: surveys.data, loading: false });
     } else {
@@ -41,10 +40,14 @@ const CreatedSurveys = () => {
         loading: false,
       });
     }
+  }
+
+  useEffect(() => {
+     loadFunc()
   }, []);
 
   const { loading, surveys, error } = state;
-  console.log('surveys :>> ', surveys);
+  //console.log('surveys :>> ', surveys);
   console.log('loading :>> ', loading);
   console.log('error :>> ', error);
   if (loading) return <Loader />;
