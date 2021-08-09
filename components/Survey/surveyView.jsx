@@ -39,13 +39,15 @@ widgets.autocomplete(Survey, $);
 widgets.bootstrapslider(Survey);
 
 
- const SurveyView = () => {
+ const SurveyView = (props) => {
   const onComplete = async (result, options) => {
     // this.setState({ ...this.state, error: "" });
     const user = JSON.parse(localStorage.getItem("user"));
 
     const userid = user.id;
+    console.log('userid :>> ', userid);
     const surveyid = props.survey.id;
+    console.log('surveyid :>> ', surveyid);
     const surveyname = props.survey.surveyname;
     const surveydescription = props.survey.surveyJSON.description;
     const surveyresultJSON = JSON.stringify(result.data);
