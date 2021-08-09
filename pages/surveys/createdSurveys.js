@@ -25,6 +25,8 @@ const CreatedSurveys = () => {
     error: "",
   });
 
+  
+
   useEffect(() => {
     setState({ ...state, loading: true });
     const userid = 14;
@@ -42,6 +44,9 @@ const CreatedSurveys = () => {
   }, []);
 
   const { loading, surveys, error } = state;
+  console.log('surveys :>> ', surveys);
+  console.log('loading :>> ', loading);
+  console.log('error :>> ', error);
   if (loading) return <Loader />;
   if (error) return <ErrorMessage errorMessage={error} />;
   if (state.surveys)

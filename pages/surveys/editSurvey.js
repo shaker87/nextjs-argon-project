@@ -8,8 +8,9 @@ import { getSurveyById } from "../../api/surveys";
 
 
 const SurveyView = (props) =>{
+
+  console.log(`props`, props)
   const onComplete = async (result, options) => {
-    // this.setState({ ...this.state, error: "" });
     const user = JSON.parse(localStorage.getItem("user"));
 
     const userid = user.id;
